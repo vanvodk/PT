@@ -1,0 +1,88 @@
+<div class="table-container">
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    multiTemplateDataRows
+    class="mat-elevation-z8"
+  >
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="flag">
+      <th mat-header-cell *matHeaderCellDef>Flag</th>
+      <td mat-cell *matCellDef="let element">
+        <img src="{{ element.flag }}" class="mini-flag" />
+      </td>
+    </ng-container>
+
+    <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+    <ng-container matColumnDef="expandedDetail">
+      <td
+        mat-cell
+        *matCellDef="let element"
+        [attr.colspan]="displayedColumns.length"
+      >
+        <div
+          class="example-element-detail"
+          [@detailExpand]="
+            element == expandedElement ? 'expanded' : 'collapsed'
+          "
+        >
+          <div>
+            <img src="{{ element.flag }}" class="big-flag" />
+          </div>
+          <span>Alpha2Code: {{ element.alpha2Code }}</span>
+          <span>Calling Codes: {{ element.callingCodes }}</span>
+          <span>Capital: {{ element.capital }}</span>
+          <span>Region: {{ element.region }}</span>
+          <span>Population: {{ element.population }}</span>
+          <span>Demonym: {{ element.demonym }}</span>
+          <span>Timezones: {{ element.timezones }}</span>
+          <div>
+            <div *ngFor="let c of element.currencies; let i = index">
+              <span>Currency {{i}}: </span>
+              <p>- Code: {{c.code}}</p>
+              <p>- Name: {{c.name}}</p>
+              <p>- Symbol: {{c.symbol}}</p>
+            </div>
+          </div>
+          <div>
+            <div *ngFor="let l of element.languages; let i = index">
+              <span>Language {{i}}: </span>
+              <p>- Iso639_1: {{l.iso639_1}}</p>
+              <p>- Iso639_2: {{l.iso639_2}}</p>
+              <p>- Name: {{l.name}}</p>
+              <p>- Native Name: {{l.nativeName}}</p>
+            </div>
+          </div>
+          <span>Borders: {{ element.borders }}</span>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr
+      mat-row
+      *matRowDef="let element; columns: displayedColumns"
+      class="example-element-row"
+      [class.example-expanded-row]="expandedElement === element"
+      (click)="expandedElement = element"
+    ></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: ['expandedDetail']"
+      class="example-detail-row"
+    ></tr>
+  </table>
+
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 20, 50, 100]"
+    [pageSize]="pageSize"
+    [pageIndex]="pageIndex"
+    [length]="length"
+    showFirstLastButtons
+    (page)="getCountries($event)"
+  ></mat-paginator>
+</div>

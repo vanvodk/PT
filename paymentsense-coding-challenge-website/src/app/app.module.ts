@@ -7,17 +7,25 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PaymentsenseCodingChallengeApiService } from './services';
 import { HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AppCountriesTableComponent } from './app-countries-table/app-countries-table.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AppCountriesTableComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatCardModule
   ],
   providers: [PaymentsenseCodingChallengeApiService],
   bootstrap: [AppComponent]

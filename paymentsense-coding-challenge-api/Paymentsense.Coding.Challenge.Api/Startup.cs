@@ -29,6 +29,8 @@ namespace Paymentsense.Coding.Challenge.Api
                         .AllowAnyHeader();
                 });
             });
+
+            services.AddHttpClient().AddMemoryCache();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
